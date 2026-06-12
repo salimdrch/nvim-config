@@ -59,6 +59,7 @@ Dans nvim :
 ```
 
 Les LSP suivants doivent être installés :
+
 - `terraform-ls`
 - `yaml-language-server`
 - `bash-language-server`
@@ -136,19 +137,19 @@ vm-bastion-adm
 
 > Leader = `Space`
 
-| Action | Raccourci |
-|---|---|
-| File tree | `Space + e` |
-| Chercher un fichier | `Space + Space` |
-| Chercher dans les fichiers | `Space + /` |
-| Terminal | `Ctrl + \` |
-| Lazygit | `Space + g + g` |
-| LSP hover doc | `K` |
-| Go to definition | `g + d` |
-| Rename variable | `Space + c + r` |
-| Diagnostics | `Space + x + x` |
-| Copier vers clipboard Mac | `"+y` |
-| Coller depuis clipboard Mac | `"+p` |
+| Action                      | Raccourci       |
+| --------------------------- | --------------- |
+| File tree                   | `Space + e`     |
+| Chercher un fichier         | `Space + Space` |
+| Chercher dans les fichiers  | `Space + /`     |
+| Terminal                    | `Ctrl + \`      |
+| Lazygit                     | `Space + g + g` |
+| LSP hover doc               | `K`             |
+| Go to definition            | `g + d`         |
+| Rename variable             | `Space + c + r` |
+| Diagnostics                 | `Space + x + x` |
+| Copier vers clipboard Mac   | `"+y`           |
+| Coller depuis clipboard Mac | `"+p`           |
 
 ---
 
