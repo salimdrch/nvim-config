@@ -1,25 +1,27 @@
 return {
-  -- Meilleur file tree
+  -- File tree : affiche fichiers cachés
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
       filesystem = {
         filtered_items = {
-          hide_dotfiles = false,  -- Affiche .env, .github, etc.
+          hide_dotfiles = false,
           hide_gitignored = false,
         },
       },
     },
   },
 
-  -- Terminal intégré
+  -- Terminal via snacks (déjà inclus dans LazyVim, on configure seulement)
   {
-    "akinsho/toggleterm.nvim",
-    version = "*",
+    "folke/snacks.nvim",
     opts = {
-      open_mapping = [[<C-\>]],
-      direction = "horizontal",
-      size = 15,
+      terminal = {
+        win = { position = "bottom", height = 15 },
+      },
+    },
+    keys = {
+      { "<C-\\>", function() Snacks.terminal.toggle() end, desc = "Toggle Terminal", mode = { "n", "t" } },
     },
   },
 }
