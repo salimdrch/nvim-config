@@ -21,7 +21,14 @@ return {
       },
     },
     keys = {
-      { "<C-\\>", function() Snacks.terminal.toggle() end, desc = "Toggle Terminal", mode = { "n", "t" } },
+      {
+        "<C-t>",
+        function()
+          Snacks.terminal.toggle()
+        end,
+        desc = "Toggle Terminal",
+        mode = { "n", "t" },
+      },
     },
   },
 }
