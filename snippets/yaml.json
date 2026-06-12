@@ -1,0 +1,94 @@
+{
+  "Kubernetes Deployment": {
+    "prefix": "k8s_deploy",
+    "body": [
+      "apiVersion: apps/v1",
+      "kind: Deployment",
+      "metadata:",
+      "  name: ${1:name}",
+      "  namespace: ${2:default}",
+      "  labels:",
+      "    app: ${1:name}",
+      "spec:",
+      "  replicas: ${3:1}",
+      "  selector:",
+      "    matchLabels:",
+      "      app: ${1:name}",
+      "  template:",
+      "    metadata:",
+      "      labels:",
+      "        app: ${1:name}",
+      "    spec:",
+      "      containers:",
+      "        - name: ${1:name}",
+      "          image: ${4:image:tag}",
+      "          ports:",
+      "            - containerPort: ${5:80}"
+    ]
+  },
+  "Kubernetes Service": {
+    "prefix": "k8s_svc",
+    "body": [
+      "apiVersion: v1",
+      "kind: Service",
+      "metadata:",
+      "  name: ${1:name}",
+      "  namespace: ${2:default}",
+      "spec:",
+      "  selector:",
+      "    app: ${1:name}",
+      "  ports:",
+      "    - protocol: TCP",
+      "      port: ${3:80}",
+      "      targetPort: ${4:80}",
+      "  type: ${5:ClusterIP}"
+    ]
+  },
+  "Kubernetes ConfigMap": {
+    "prefix": "k8s_cm",
+    "body": [
+      "apiVersion: v1",
+      "kind: ConfigMap",
+      "metadata:",
+      "  name: ${1:name}",
+      "  namespace: ${2:default}",
+      "data:",
+      "  ${3:key}: \"${4:value}\""
+    ]
+  },
+  "Kubernetes Secret": {
+    "prefix": "k8s_secret",
+    "body": [
+      "apiVersion: v1",
+      "kind: Secret",
+      "metadata:",
+      "  name: ${1:name}",
+      "  namespace: ${2:default}",
+      "type: Opaque",
+      "data:",
+      "  ${3:key}: ${4:base64value}"
+    ]
+  },
+  "Kubernetes Ingress": {
+    "prefix": "k8s_ingress",
+    "body": [
+      "apiVersion: networking.k8s.io/v1",
+      "kind: Ingress",
+      "metadata:",
+      "  name: ${1:name}",
+      "  namespace: ${2:default}",
+      "spec:",
+      "  rules:",
+      "    - host: ${3:host.example.com}",
+      "      http:",
+      "        paths:",
+      "          - path: /",
+      "            pathType: Prefix",
+      "            backend:",
+      "              service:",
+      "                name: ${1:name}",
+      "                port:",
+      "                  number: ${4:80}"
+    ]
+  }
+}
