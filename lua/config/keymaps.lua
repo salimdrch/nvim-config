@@ -29,3 +29,27 @@ map("n", "<leader>yl", "<cmd>!yamllint %<cr>", { desc = "YAML lint" })
 -- ─── Qualité de vie ───────────────────────────────────────────
 map("n", "<leader>sr", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { desc = "Remplacer mot sous curseur" })
 map("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Effacer surbrillance recherche" })
+
+-- ─── Sessions ─────────────────────────────────────────────────
+map("n", "<leader>qs", function() require("persistence").load() end,              { desc = "Restaurer session" })
+map("n", "<leader>ql", function() require("persistence").load({ last = true }) end, { desc = "Dernière session" })
+map("n", "<leader>qd", function() require("persistence").stop() end,              { desc = "Ne pas sauver la session" })
+
+-- ─── Telescope avancé ─────────────────────────────────────────
+local builtin = require("telescope.builtin")
+
+-- Git
+map("n", "<leader>gc", builtin.git_commits,   { desc = "Git commits" })
+map("n", "<leader>gs", builtin.git_status,    { desc = "Git status" })
+map("n", "<leader>gB", builtin.git_branches,  { desc = "Git branches" })
+
+-- LSP
+map("n", "<leader>cs", builtin.lsp_document_symbols,  { desc = "Symbols fichier" })
+map("n", "<leader>cS", builtin.lsp_workspace_symbols, { desc = "Symbols workspace" })
+map("n", "<leader>cr", builtin.lsp_references,        { desc = "References" })
+
+-- Recherche avancée
+map("n", "<leader>s.", builtin.oldfiles,      { desc = "Fichiers récents" })
+map("n", "<leader>sk", builtin.keymaps,       { desc = "Keymaps" })
+map("n", "<leader>sd", builtin.diagnostics,   { desc = "Diagnostics" })
+map("n", "<leader>sh", builtin.help_tags,     { desc = "Aide nvim" })
