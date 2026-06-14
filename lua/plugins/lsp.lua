@@ -1,5 +1,5 @@
 return {
-  -- Formatting : déclare juste les formatters par filetype
+  -- Formatting
   {
     "stevearc/conform.nvim",
     opts = {
@@ -56,6 +56,21 @@ return {
         },
         bashls = {
           filetypes = { "sh", "bash", "zsh" },
+        },
+        ansiblels = {
+          filetypes = { "yaml.ansible", "yaml" },
+          settings = {
+            ansible = {
+              ansible = { path = "ansible" },
+              validation = {
+                enabled = true,
+                lint = {
+                  enabled = true,
+                  path = "ansible-lint",
+                },
+              },
+            },
+          },
         },
       },
     },

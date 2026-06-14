@@ -10,10 +10,12 @@ return {
         "bash-language-server",
         "dockerfile-language-server",
         "helm-ls",
+        "ansible-language-server",
         -- Linters
         "tflint",
         "shellcheck",
         "yamllint",
+        "ansible-lint",
         -- Formatters
         "prettier",
         "shfmt",
