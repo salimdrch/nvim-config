@@ -9,22 +9,6 @@ return {
     },
   },
 
-  -- Fermeture automatique des paires
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    opts = {
-      check_ts = true,
-    },
-  },
-
-  -- Commenter avec gcc / gc
-  {
-    "numToStr/Comment.nvim",
-    event = "VeryLazy",
-    opts = {},
-  },
-
   -- Surround : cs"' / ds" / ysiw"
   {
     "kylechui/nvim-surround",

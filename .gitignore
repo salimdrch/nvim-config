@@ -1,8 +1,10 @@
-tt.*
-.tests
-doc/tags
-debug
-.repro
-foo.*
-*.log
-data
+# Fichiers sensibles
+*.env
+*.tfvars
+*.tfvars.json
+*secret*
+*password*
+*credentials*
+
+# Cache nvim
+.cache/
