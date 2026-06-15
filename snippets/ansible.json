@@ -1,0 +1,151 @@
+{
+  "scope": "yaml,yaml.ansible",
+  "Ansible Playbook": {
+    "prefix": "ans_play",
+    "body": [
+      "---",
+      "- name: ${1:Nom du playbook}",
+      "  hosts: ${2:all}",
+      "  become: ${3:true}",
+      "  gather_facts: ${4:true}",
+      "",
+      "  vars:",
+      "    ${5:variable}: ${6:valeur}",
+      "",
+      "  tasks:",
+      "    - name: ${7:Task principale}",
+      "      ${8:module}:",
+      "",
+      "  handlers:",
+      "    - name: ${9:Handler}",
+      "      ${10:module}:"
+    ]
+  },
+  "Ansible Task": {
+    "prefix": "ans_task",
+    "body": [
+      "- name: ${1:Description}",
+      "  ${2:module}:",
+      "    ${3:option}: ${4:valeur}",
+      "  when: ${5:condition}",
+      "  tags:",
+      "    - ${6:tag}"
+    ]
+  },
+  "Ansible Package": {
+    "prefix": "ans_pkg",
+    "body": [
+      "- name: Installer ${1:package}",
+      "  ansible.builtin.package:",
+      "    name: ${1:package}",
+      "    state: ${2:present}",
+      "  become: true"
+    ]
+  },
+  "Ansible Service": {
+    "prefix": "ans_service",
+    "body": [
+      "- name: ${1:Gérer} le service ${2:service}",
+      "  ansible.builtin.service:",
+      "    name: ${2:service}",
+      "    state: ${3:started}",
+      "    enabled: ${4:true}",
+      "  become: true"
+    ]
+  },
+  "Ansible Copy": {
+    "prefix": "ans_copy",
+    "body": [
+      "- name: Copier ${1:fichier}",
+      "  ansible.builtin.copy:",
+      "    src: ${2:source}",
+      "    dest: ${3:destination}",
+      "    owner: ${4:root}",
+      "    group: ${5:root}",
+      "    mode: '${6:0644}'",
+      "  become: true"
+    ]
+  },
+  "Ansible Template": {
+    "prefix": "ans_template",
+    "body": [
+      "- name: Déployer ${1:template}",
+      "  ansible.builtin.template:",
+      "    src: ${2:template.j2}",
+      "    dest: ${3:destination}",
+      "    owner: ${4:root}",
+      "    group: ${5:root}",
+      "    mode: '${6:0644}'",
+      "  become: true",
+      "  notify: ${7:handler}"
+    ]
+  },
+  "Ansible Handler": {
+    "prefix": "ans_handler",
+    "body": [
+      "- name: ${1:handler}",
+      "  ansible.builtin.service:",
+      "    name: ${2:service}",
+      "    state: ${3:restarted}"
+    ]
+  },
+  "Ansible Debug": {
+    "prefix": "ans_debug",
+    "body": [
+      "- name: Debug ${1:variable}",
+      "  ansible.builtin.debug:",
+      "    msg: \"{{ ${1:variable} }}\""
+    ]
+  },
+  "Ansible Register": {
+    "prefix": "ans_reg",
+    "body": [
+      "- name: ${1:Commande}",
+      "  ansible.builtin.command: ${2:cmd}",
+      "  register: ${3:result}",
+      "  changed_when: false",
+      "",
+      "- name: ${4:Task conditionnelle}",
+      "  ${5:module}:",
+      "  when: ${3:result}.rc == 0"
+    ]
+  },
+  "Ansible Lineinfile": {
+    "prefix": "ans_line",
+    "body": [
+      "- name: Modifier ${1:fichier}",
+      "  ansible.builtin.lineinfile:",
+      "    path: ${1:fichier}",
+      "    regexp: '${2:pattern}'",
+      "    line: '${3:ligne}'",
+      "  become: true"
+    ]
+  },
+  "Ansible Block": {
+    "prefix": "ans_block",
+    "body": [
+      "- name: ${1:Block}",
+      "  block:",
+      "    - name: ${2:Task}",
+      "      ${3:module}:",
+      "  rescue:",
+      "    - name: Erreur",
+      "      ansible.builtin.debug:",
+      "        msg: \"Erreur: {{ ansible_failed_task.name }}\"",
+      "  always:",
+      "    - name: Toujours",
+      "      ansible.builtin.debug:",
+      "        msg: \"Terminé\""
+    ]
+  },
+  "Ansible Inventory": {
+    "prefix": "ans_inv",
+    "body": [
+      "[${1:groupe}]",
+      "${2:host} ansible_host=${3:ip} ansible_user=${4:user}",
+      "",
+      "[${1:groupe}:vars]",
+      "ansible_python_interpreter=/usr/bin/python3"
+    ]
+  }
+}

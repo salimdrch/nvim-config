@@ -78,3 +78,7 @@ map("n", "M-S-Left>", "vb", { desc = "Sélectionner mot gauche" })
 -- ─── Sélection étendue (mode visuel) ──────────────────────────
 map("v", "<M-S-Right>", "w", { desc = "Étendre sélection droite" })
 map("v", "<M-S-Left>", "b", { desc = "Étendre sélection gauche" })
+
+-- ─── Ansible LSP toggle ───────────────────────────────────────
+map("n", "<leader>aa", "<cmd>LspStart ansiblels<cr>", { desc = "Ansible LSP start" })
+map("n", "<leader>ax", "<cmd>LspStop ansiblels<cr>",  { desc = "Ansible LSP stop" })

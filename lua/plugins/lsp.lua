@@ -5,12 +5,12 @@ return {
     opts = {
       formatters_by_ft = {
         terraform = { "terraform_fmt" },
-        yaml      = { "prettier" },
-        json      = { "prettier" },
-        sh        = { "shfmt" },
-        bash      = { "shfmt" },
-        lua       = { "stylua" },
-        markdown  = { "prettier" },
+        yaml = { "prettier" },
+        json = { "prettier" },
+        sh = { "shfmt" },
+        bash = { "shfmt" },
+        lua = { "stylua" },
+        markdown = { "prettier" },
       },
     },
   },
@@ -20,14 +20,14 @@ return {
     "folke/trouble.nvim",
     opts = { use_diagnostic_signs = true },
     keys = {
-      { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>",              desc = "Diagnostics" },
+      { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics" },
       { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Diagnostics fichier" },
-      { "<leader>xL", "<cmd>Trouble loclist toggle<cr>",                  desc = "Location list" },
-      { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>",                   desc = "Quickfix list" },
+      { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location list" },
+      { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix list" },
     },
   },
 
-  -- LSP
+  -- Désactiver ansiblels complètement via LazyVim
   {
     "neovim/nvim-lspconfig",
     opts = {
@@ -39,39 +39,32 @@ return {
       },
       servers = {
         yamlls = {
+          filetypes = { "yaml" },
           settings = {
             yaml = {
               schemas = {
                 ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
                 ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
+                ["https://json.schemastore.org/docker-compose.json"] = "/*docker-compose*.yml",
               },
               validate = true,
-              completion = true,
+              completion = false,
               hover = true,
             },
           },
         },
         terraformls = {
-          filetypes = { "terraform", "tf", "terraform-vars" },
+          filetypes = { "terraform", "tf" },
         },
         bashls = {
           filetypes = { "sh", "bash", "zsh" },
         },
-        ansiblels = {
-          filetypes = { "yaml.ansible", "yaml" },
-          settings = {
-            ansible = {
-              ansible = { path = "ansible" },
-              validation = {
-                enabled = true,
-                lint = {
-                  enabled = true,
-                  path = "ansible-lint",
-                },
-              },
-            },
-          },
-        },
+      },
+      -- Désactiver ansiblels complètement
+      setup = {
+        ansiblels = function()
+          return true -- true = ne pas configurer
+        end,
       },
     },
   },
