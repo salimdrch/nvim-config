@@ -1,39 +1,25 @@
 return {
-  -- Mason : gestionnaire de LSP/linters/formatters
+  -- Mason
   {
     "mason-org/mason.nvim",
     opts = {
       ensure_installed = {
-        -- LSP
         "terraform-ls",
         "yaml-language-server",
         "bash-language-server",
-        "dockerfile-language-server",
-        "helm-ls",
         "ansible-language-server",
-        -- Linters
         "tflint",
         "shellcheck",
         "yamllint",
-        "ansible-lint",
-        -- Formatters
         "prettier",
         "shfmt",
       },
     },
   },
 
-  -- Treesitter : meilleure syntax highlighting
+  -- Treesitter désactivé sur serveur (GLIBC trop vieux)
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "terraform", "hcl",
-        "yaml", "json", "toml",
-        "bash", "dockerfile",
-        "lua", "python",
-        "markdown", "markdown_inline",
-      },
-    },
+    enabled = false,
   },
 }
