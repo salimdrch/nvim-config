@@ -1,0 +1,66 @@
+{
+  "Terraform Resource AWS Instance": {
+    "prefix": "tf_ec2",
+    "body": [
+      "resource \"aws_instance\" \"${1:name}\" {",
+      "  ami           = \"${2:ami-id}\"",
+      "  instance_type = \"${3:t3.micro}\"",
+      "",
+      "  tags = {",
+      "    Name        = \"${1:name}\"",
+      "    Environment = \"${4:dev}\"",
+      "  }",
+      "}"
+    ]
+  },
+  "Terraform Resource S3 Bucket": {
+    "prefix": "tf_s3",
+    "body": [
+      "resource \"aws_s3_bucket\" \"${1:name}\" {",
+      "  bucket = \"${2:bucket-name}\"",
+      "",
+      "  tags = {",
+      "    Name        = \"${2:bucket-name}\"",
+      "    Environment = \"${3:dev}\"",
+      "  }",
+      "}"
+    ]
+  },
+  "Terraform Variable": {
+    "prefix": "tf_var",
+    "body": [
+      "variable \"${1:name}\" {",
+      "  description = \"${2:description}\"",
+      "  type        = ${3:string}",
+      "  default     = \"${4:value}\"",
+      "}"
+    ]
+  },
+  "Terraform Output": {
+    "prefix": "tf_out",
+    "body": [
+      "output \"${1:name}\" {",
+      "  description = \"${2:description}\"",
+      "  value       = ${3:value}",
+      "}"
+    ]
+  },
+  "Terraform Module": {
+    "prefix": "tf_mod",
+    "body": [
+      "module \"${1:name}\" {",
+      "  source = \"${2:./modules/name}\"",
+      "",
+      "  ${3:variable} = ${4:value}",
+      "}"
+    ]
+  },
+  "Terraform Provider AWS": {
+    "prefix": "tf_provider",
+    "body": [
+      "provider \"aws\" {",
+      "  region = \"${1:eu-west-1}\"",
+      "}"
+    ]
+  }
+}

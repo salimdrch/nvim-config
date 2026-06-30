@@ -1,0 +1,28 @@
+return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
+    main = "nvim-treesitter.configs",
+    opts = {
+      ensure_installed = {
+        "yaml", "json", "toml",
+        "bash", "lua", "python",
+        "markdown", "markdown_inline",
+        "vim", "vimdoc",
+      },
+      auto_install = false,
+      highlight = {
+        enable = true,
+        disable = function(_, buf)
+          local max_filesize = 500 * 1024
+          local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+          if ok and stats and stats.size > max_filesize then
+            return true
+          end
+        end,
+      },
+      indent = { enable = true },
+    },
+  },
+}
