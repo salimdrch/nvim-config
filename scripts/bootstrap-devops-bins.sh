@@ -78,3 +78,15 @@ echo "==> Terminé."
 echo "    rg      : $(rg --version | head -1)"
 echo "    fd      : $(fd --version)"
 echo "    lazygit : $(lazygit --version | grep -Po 'version=\K[^,]*')"
+
+# ─── Neovim ─────────────────────────────────────────────────────
+if ! command -v nvim >/dev/null 2>&1; then
+  echo "--> neovim"
+  curl -Lo /tmp/nvim.tar.gz \
+    https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+  tar xf /tmp/nvim.tar.gz -C "$HOME/.local/"
+  ln -sf "$HOME/.local/nvim-linux-x86_64/bin/nvim" "$BIN_DIR/nvim"
+  echo "    OK : $(nvim --version | head -1)"
+else
+  echo "--> nvim déjà présent ($(nvim --version | head -1)), ignoré"
+fi
