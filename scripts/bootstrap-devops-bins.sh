@@ -90,3 +90,34 @@ if ! command -v nvim >/dev/null 2>&1; then
 else
   echo "--> nvim déjà présent ($(nvim --version | head -1)), ignoré"
 fi
+
+# ─── Node.js (requis par Mason : pyright, yamlls, bashls, dockerls, ansiblels) ─
+if ! command -v node >/dev/null 2>&1; then
+  echo "--> node.js"
+  NODE_VERSION="v22.13.1"
+  curl -Lo /tmp/node.tar.gz \
+    "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.gz"
+  tar xf /tmp/node.tar.gz -C "$HOME/.local/" \
+    --exclude="*/CHANGELOG.md" --exclude="*/LICENSE" --exclude="*/README.md"
+  # Créer les symlinks dans ~/.local/bin
+  ln -sf "$HOME/.local/node-${NODE_VERSION}-linux-x64/bin/node" "$BIN_DIR/node"
+  ln -sf "$HOME/.local/node-${NODE_VERSION}-linux-x64/bin/npm" "$BIN_DIR/npm"
+  ln -sf "$HOME/.local/node-${NODE_VERSION}-linux-x64/bin/npx" "$BIN_DIR/npx"
+  echo "    OK : $(node --version)"
+else
+  echo "--> node déjà présent ($(node --version)), ignoré"
+fi
+
+# ─── tree-sitter CLI (requis par nvim-treesitter branche main) ──────────────
+if ! command -v tree-sitter >/dev/null 2>&1; then
+  echo "--> tree-sitter CLI"
+  TS_VERSION=$(curl -s "https://api.github.com/repos/tree-sitter/tree-sitter/releases/latest" \
+    | grep -m1 '"tag_name"' | grep -Po ':\s*"\K[^"]*' || echo "v0.26.9")
+  curl -Lo /tmp/tree-sitter.gz \
+    "https://github.com/tree-sitter/tree-sitter/releases/download/${TS_VERSION}/tree-sitter-linux-x64.gz"
+  gunzip -c /tmp/tree-sitter.gz > "$BIN_DIR/tree-sitter"
+  chmod +x "$BIN_DIR/tree-sitter"
+  echo "    OK : $(tree-sitter --version)"
+else
+  echo "--> tree-sitter déjà présent ($(tree-sitter --version)), ignoré"
+fi
